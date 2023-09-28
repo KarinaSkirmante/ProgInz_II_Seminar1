@@ -8,7 +8,7 @@
 		<version>3.1.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
+	<groupId>lv.venta</groupId>
 	<artifactId>ProgInz_II_Seminar1</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ProgInz_II_Seminar1</name>
