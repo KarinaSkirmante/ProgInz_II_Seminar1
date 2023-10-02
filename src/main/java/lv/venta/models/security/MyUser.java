@@ -46,12 +46,16 @@ public class MyUser {
 	@ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
 	private Collection<MyAuthority> authorities = new ArrayList<>();
 	
+		
 	
-	
-	
-	
-	
-	
+	public Collection<MyAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Collection<MyAuthority> authorities) {
+		this.authorities = authorities;
+	}
+
 	public String getName() {
 		return name;
 	}

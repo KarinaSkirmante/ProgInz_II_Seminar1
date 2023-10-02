@@ -31,14 +31,22 @@ public class MyAuthority {
 
 	@ManyToMany
 	@JoinTable(name = "Users_Authorities",
-	joinColumns = @JoinColumn(name="MyUserId"),
-	inverseJoinColumns = @JoinColumn(name="MyAuthorityId"))
+	joinColumns = @JoinColumn(name="MyAuthorityId"),
+	inverseJoinColumns = @JoinColumn(name="MyUserId"))
 	private Collection<MyUser> users = new ArrayList<>();
 	
+		
 	
-	
-	
-	
+	public Collection<MyUser> getUsers() {
+		return users;
+	}
+
+
+	public void setUsers(Collection<MyUser> users) {
+		this.users = users;
+	}
+
+
 	public String getTitle() {
 		return title;
 	}
