@@ -1,8 +1,11 @@
 package lv.venta.confs;
 
+import java.io.IOException;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,8 +16,13 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import jakarta.servlet.DispatcherType;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lv.venta.services.impl.security.MyUserDetailsManagerImpl;
 
 @Configuration
@@ -64,6 +72,7 @@ public class SecurityConfig {
 		return authenticationManagerBuilder.build();
 	}
 
+	
 	// nodorošināt piekļuvi konkrētiem endpointien
 	// SecurityFilterChain
 	@Bean
@@ -83,11 +92,13 @@ public class SecurityConfig {
 		.requestMatchers("/error").permitAll()
 		.requestMatchers("/h2-console").permitAll()
 		.requestMatchers("/h2-console/**").permitAll()
+		.dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
 		.and()
 		.formLogin().permitAll()
 		.and()
-		.logout().permitAll();
-
+		.logout().permitAll()
+		.and()
+		.exceptionHandling().accessDeniedPage("/my-access-denied");
 		return http.build();
 
 	}
